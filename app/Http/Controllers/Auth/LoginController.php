@@ -53,10 +53,6 @@ class LoginController extends Controller
             {
                 return redirect()->route('admin.home');
             }
-            else if(auth()->user()->jabatan == 'pegawai')
-            {
-                return redirect()->route('pegawai.home');
-            }
             else
             {
                 return redirect()->route('home');

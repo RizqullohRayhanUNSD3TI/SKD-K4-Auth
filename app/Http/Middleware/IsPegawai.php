@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,10 +17,12 @@ class IsPegawai
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->jabatan == 'pegawai') {
-            return $next($request);
+        if (Auth::check()) {
+            if (auth()->user()->jabatan == 'pegawai') {
+                return $next($request);
+            }
         }
 
-        return redirect('home')->with('error', "You Don't have permission as pegawai");
+        return redirect()->route('customLogin')->with('error', "You don't have pegawai access.");
     }
 }
